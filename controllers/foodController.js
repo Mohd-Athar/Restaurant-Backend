@@ -1,5 +1,5 @@
-const foodModal = require("../models/foodModal");
-const orderModel = require("../models/orderModel");
+import {Foods} from '../models/foodModal.js'
+import {Orders} from '../models/orderModel.js'
 
 // CREATE FOOD
 const createFoodController = async (req, res) => {
@@ -55,7 +55,7 @@ const createFoodController = async (req, res) => {
 // GET ALLL FOODS
 const getAllFoodsController = async (req, res) => {
   try {
-    const foods = await foodModal.find({});
+    const foods = await Foods.find({});
     if (!foods) {
       return res.status(404).send({
         success: false,
@@ -87,7 +87,7 @@ const getSingleFoodController = async (req, res) => {
         message: "please provide id",
       });
     }
-    const food = await foodModal.findById(foodId);
+    const food = await Foods.findById(foodId);
     if (!food) {
       return res.status(404).send({
         success: false,
@@ -118,7 +118,7 @@ const getFoodByResturantController = async (req, res) => {
         message: "please provide id",
       });
     }
-    const food = await foodModal.find({ resturnat: resturantId });
+    const food = await Foods.find({ resturnat: resturantId });
     if (!food) {
       return res.status(404).send({
         success: false,
@@ -150,7 +150,7 @@ const updateFoodController = async (req, res) => {
         message: "no food id was found",
       });
     }
-    const food = await foodModal.findById(foodID);
+    const food = await Foods.findById(foodID);
     if (!food) {
       return res.status(404).send({
         success: false,
@@ -169,7 +169,7 @@ const updateFoodController = async (req, res) => {
       resturnat,
       rating,
     } = req.body;
-    const updatedFood = await foodModal.findByIdAndUpdate(
+    const updatedFood = await Foods.findByIdAndUpdate(
       foodID,
       {
         title,
@@ -209,14 +209,14 @@ const deleteFoodController = async (req, res) => {
         message: "provide food id",
       });
     }
-    const food = await foodModal.findById(foodId);
+    const food = await Foods.findById(foodId);
     if (!food) {
       return res.status(404).send({
         success: false,
         message: "No Food Found with id",
       });
     }
-    await foodModal.findByIdAndDelete(foodId);
+    await Foods.findByIdAndDelete(foodId);
     res.status(200).send({
       success: true,
       message: "Food Item Dleeted ",
@@ -279,7 +279,7 @@ const orderStatusController = async (req, res) => {
       });
     }
     const { status } = req.body;
-    const order = await orderModel.findByIdAndUpdate(
+    const order = await Orders.findByIdAndUpdate(
       orderId,
       { status },
       { new: true }
@@ -298,7 +298,7 @@ const orderStatusController = async (req, res) => {
   }
 };
 
-module.exports = {
+export {
   createFoodController,
   getAllFoodsController,
   getSingleFoodController,

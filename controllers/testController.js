@@ -6,4 +6,4 @@ const testUserController = (req, res) => {
   }
 };
 
-module.exports = { testUserController };
+export { testUserController };

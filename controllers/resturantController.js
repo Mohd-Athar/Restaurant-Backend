@@ -1,4 +1,4 @@
-const resturantModel = require("../models/resturantModel");
+import {Resturant} from '../models/resturantModel.js'
 
 // CREATE RESTURANT
 const createResturantController = async (req, res) => {
@@ -58,7 +58,7 @@ const createResturantController = async (req, res) => {
 // GET ALL RESTURNAT
 const getAllResturantController = async (req, res) => {
   try {
-    const resturants = await resturantModel.find({});
+    const resturants = await Resturant.find({});
     if (!resturants) {
       return res.status(404).send({
         success: false,
@@ -91,7 +91,7 @@ const getResturantByIdController = async (req, res) => {
       });
     }
     //find resturant
-    const resturant = await resturantModel.findById(resturantId);
+    const resturant = await Resturant.findById(resturantId);
     if (!resturant) {
       return res.status(404).send({
         success: false,
@@ -122,7 +122,7 @@ const deleteResturantController = async (req, res) => {
         message: "No Resturant Found OR Provide Resturant ID",
       });
     }
-    await resturantModel.findByIdAndDelete(resturantId);
+    await Resturant.findByIdAndDelete(resturantId);
     res.status(200).send({
       success: true,
       message: "Resturant Deleted Successfully",
@@ -137,7 +137,7 @@ const deleteResturantController = async (req, res) => {
   }
 };
 
-module.exports = {
+export{
   createResturantController,
   getAllResturantController,
   getResturantByIdController,

@@ -1,12 +1,12 @@
-const userModel = require("../models/userModel");
+import {User} from "../models/userModel.js";
 
-module.exports = async (req, res, next) => {
+const adminMiddleware = async (req, res, next) => {
   try {
-    const user = await userModel.findById(req.body.id);
+    const user = await User.findById(req.body.id);
     if (user.usertype !== "admin") {
       return res.status(401).send({
         success: false,
-        message: "Only Admin ACess ",
+        message: "Only Admin Access ",
       });
     } else {
       next();
@@ -20,3 +20,5 @@ module.exports = async (req, res, next) => {
     });
   }
 };
+
+export {adminMiddleware}

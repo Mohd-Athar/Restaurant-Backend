@@ -1,5 +1,4 @@
-const categoryModel = require("../models/categoryModel");
-
+import {Category} from '../models/categoryModel.js'
 // CREATE CAT
 const createCatController = async (req, res) => {
   try {
@@ -31,7 +30,7 @@ const createCatController = async (req, res) => {
 // GET ALL CAT
 const getAllCatController = async (req, res) => {
   try {
-    const categories = await categoryModel.find({});
+    const categories = await Category.find({});
     if (!categories) {
       return res.status(404).send({
         success: false,
@@ -58,7 +57,7 @@ const updateCatController = async (req, res) => {
   try {
     const { id } = req.params;
     const { title, imageUrl } = req.body;
-    const updatedCategory = await categoryModel.findByIdAndUpdate(
+    const updatedCategory = await Category.findByIdAndUpdate(
       id,
       { title, imageUrl },
       { new: true }
@@ -93,14 +92,14 @@ const deleteCatController = async (req, res) => {
         message: "Please provide Category ID",
       });
     }
-    const category = await categoryModel.findById(id);
+    const category = await Category.findById(id);
     if (!category) {
       return res.status(500).send({
         success: false,
         message: "No Category Found With this id",
       });
     }
-    await categoryModel.findByIdAndDelete(id);
+    await Category.findByIdAndDelete(id);
     res.status(200).send({
       success: true,
       message: "category Deleted succssfully",
@@ -115,7 +114,7 @@ const deleteCatController = async (req, res) => {
   }
 };
 
-module.exports = {
+export {
   createCatController,
   getAllCatController,
   updateCatController,

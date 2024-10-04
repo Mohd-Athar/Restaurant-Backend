@@ -1,26 +1,25 @@
-const express = require("express");
-
-const authMiddleware = require("../middlewares/authMiddleware");
-const {
+import express from 'express'
+import {authMiddleware} from '../middlewares/authMiddleware.js'
+import {
   createCatController,
   getAllCatController,
   updateCatController,
-  deleteCatController,
-} = require("../controllers/categoryController");
+  deleteCatController} from '../controllers/categoryController.js'
 
-const router = express.Router();
+
+const categoryRoutes = express.Router();
 
 //routes
 // CREATE CAT
-router.post("/create", authMiddleware, createCatController);
+categoryRoutes.post("/create", authMiddleware, createCatController);
 
 //GET ALL CAT
-router.get("/getAll", getAllCatController);
+categoryRoutes.get("/getAll", getAllCatController);
 
 // UPDATE CAT
-router.put("/update/:id", authMiddleware, updateCatController);
+categoryRoutes.put("/update/:id", authMiddleware, updateCatController);
 
 // DLEETE CAT
-router.delete("/delete/:id", authMiddleware, deleteCatController);
+categoryRoutes.delete("/delete/:id", authMiddleware, deleteCatController);
 
-module.exports = router;
+export {categoryRoutes}

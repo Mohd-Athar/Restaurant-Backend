@@ -1,26 +1,25 @@
-const express = require("express");
-
-const authMiddleware = require("../middlewares/authMiddleware");
-const {
+import express from 'express'
+import {authMiddleware} from '../middlewares/authMiddleware.js'
+import {
   createResturantController,
   getAllResturantController,
   getResturantByIdController,
   deleteResturantController,
-} = require("../controllers/resturantController");
+} from "../controllers/resturantController.js"
 
-const router = express.Router();
+const resturantRoutes = express.Router();
 
 //routes
 // CRAETE RESTURANT || POST
-router.post("/create", authMiddleware, createResturantController);
+resturantRoutes.post("/create", authMiddleware, createResturantController);
 
 // GET ALL RESTURANTS || GET
-router.get("/getAll", getAllResturantController);
+resturantRoutes.get("/getAll", getAllResturantController);
 
 // GET RESTURANT BY ID || GET
-router.get("/get/:id", getResturantByIdController);
+resturantRoutes.get("/get/:id", getResturantByIdController);
 
 // DELETE RESTURANT || DELETE
-router.delete("/delete/:id", authMiddleware, deleteResturantController);
+resturantRoutes.delete("/delete/:id", authMiddleware, deleteResturantController);
 
-module.exports = router;
+export {resturantRoutes}

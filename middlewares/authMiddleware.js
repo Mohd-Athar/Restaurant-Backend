@@ -1,6 +1,6 @@
-const JWT = require("jsonwebtoken");
+import JWT from 'jsonwebtoken'
 
-module.exports = async (req, res, next) => {
+const authMiddleware = async (req, res, next) => {
   try {
     // get token
     const token = req.headers["authorization"].split(" ")[1];
@@ -24,3 +24,5 @@ module.exports = async (req, res, next) => {
     });
   }
 };
+
+export {authMiddleware}

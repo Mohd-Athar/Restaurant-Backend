@@ -1,11 +1,11 @@
-const userModel = require("../models/userModel");
-const bcrypt = require("bcryptjs");
+import {User} from '../models/userModel.js'
+import bcrypt from 'bcryptjs'
 
 // GET USER INFGO
 const getUserController = async (req, res) => {
   try {
     // find user
-    const user = await userModel.findById({ _id: req.body.id });
+    const user = await User.findById({ _id: req.body.id });
     //validation
     if (!user) {
       return res.status(404).send({
@@ -35,7 +35,7 @@ const getUserController = async (req, res) => {
 const updateUserController = async (req, res) => {
   try {
     // find user
-    const user = await userModel.findById({ _id: req.body.id });
+    const user = await User.findById({ _id: req.body.id });
     //validation
     if (!user) {
       return res.status(404).send({
@@ -68,12 +68,12 @@ const updateUserController = async (req, res) => {
 const updatePasswordController = async (req, res) => {
   try {
     //find user
-    const user = await userModel.findById({ _id: req.body.id });
+    const user = await User.findById({ _id: req.body.id });
     //valdiation
     if (!user) {
       return res.status(404).send({
         success: false,
-        message: "Usre Not Found",
+        message: "User Not Found",
       });
     }
     // get data from user
@@ -121,7 +121,7 @@ const resetPasswordController = async (req, res) => {
         message: "Please Privide All Fields",
       });
     }
-    const user = await userModel.findOne({ email, answer });
+    const user = await User.findOne({ email, answer });
     if (!user) {
       return res.status(500).send({
         success: false,
@@ -150,7 +150,7 @@ const resetPasswordController = async (req, res) => {
 // DLEETE PROFILE ACCOUNT
 const deleteProfileController = async (req, res) => {
   try {
-    await userModel.findByIdAndDelete(req.params.id);
+    await User.findByIdAndDelete(req.params.id);
     return res.status(200).send({
       success: true,
       message: "Your account has been deleted",
@@ -165,7 +165,7 @@ const deleteProfileController = async (req, res) => {
   }
 };
 
-module.exports = {
+export{
   getUserController,
   updateUserController,
   updatePasswordController,
