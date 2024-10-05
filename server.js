@@ -1,7 +1,6 @@
 import express from "express"
 import colors from 'colors'
 import cors from 'cors'
-import morgan from 'morgan'
 import dotenv from 'dotenv'
 import {connectDb} from './config/db.js'
 import {authRoutes} from './routes/authRoutes.js'
@@ -23,7 +22,7 @@ const app = express();
 //middlewares
 app.use(cors());
 app.use(express.json());
-app.use(morgan("dev"));
+
 
 //route
 // URL => http://localhost:8080
